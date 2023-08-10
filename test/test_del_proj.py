@@ -18,11 +18,13 @@ testdata = [
 
 @pytest.mark.parametrize("project", testdata, ids=[repr(x) for x in testdata])
 def test_del_proj(app, project):
-    if len(app.project.get_projects_list()) == 0:
+    app.session.login("administrator", "root")
+    if len(app.project.get_list()) == 0:
         app.project.create(project)
-    old_projects_list = app.project.get_projects_list()
+    old_projects_list = app.soap.get_list()
     project_rnd = random.choice(old_projects_list)
     app.project.delete_project(project_rnd)
-    new_projects_list = app.project.get_projects_list()
+    new_projects_list = app.soap.get_list()
     old_projects_list.remove(project_rnd)
     assert sorted(old_projects_list, key=Project.is_name_empty) == sorted(new_projects_list, key=Project.is_name_empty)
+    app.session.logout()

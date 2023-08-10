@@ -1,11 +1,15 @@
 from selenium import webdriver
 from fixture.session import SessionHelper
 from fixture.project import ProjectHelper
+from fixture.signup import SignupHelper
+from fixture.soap import SoapHelper
+from fixture.james import JamesHelper
+from fixture.mail import MailHelper
 
 
 class Application:
 
-    def __init__(self, browser, base_url):
+    def __init__(self, browser, config):
         if browser == "firefox":
             self.wd = webdriver.Firefox(executable_path=r'C:\tempf\geckodriver.exe')
         elif browser == "chrome":
@@ -17,7 +21,12 @@ class Application:
         self.wd.implicitly_wait(5)
         self.session = SessionHelper(self)
         self.project = ProjectHelper(self)
-        self.base_url = base_url
+        self.signup = SignupHelper(self)
+        self.soap = SoapHelper(self)
+        self.james = JamesHelper(self)
+        self.mail = MailHelper(self)
+        self.config = config
+        self.base_url = config['web']['baseUrl']
 
     def is_valid(self):
         try:

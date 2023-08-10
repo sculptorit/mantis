@@ -5,5 +5,11 @@
   "webadmin": {
     "username": "administrator",
     "password": "root"
+  },
+  "james": {
+    "host": "localhost",
+    "port": 4555,
+    "username": "root",
+    "password": "root"
   }
 }
