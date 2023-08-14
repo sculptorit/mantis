@@ -19,7 +19,6 @@ class SoapHelper:
     def get_list(self):
         username = self.app.config['webadmin']['username']
         password = self.app.config['webadmin']['password']
-        projects_list = []
         client = Client(self.app.config['web']['baseUrl'] + "/api/soap/mantisconnect.php?wsdl")
         try:
             projects = client.service.mc_projects_get_user_accessible(username, password)
